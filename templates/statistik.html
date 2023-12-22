@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ains45</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- css only -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div>
+        <!-- Ini navbar -->
+        <nav class="navbar bg-warning-subtle border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-warning-emphasis" href="#">Ains45</a>
+                <div class="row-justify-content-end">
+                    <button type="button" class="btn btn-outline-secondary col-sm-7">Sign In</button>
+                    <button class="navbar-toggler col-sm-4" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Sign up</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- ini navbar end -->
+    </div>
+
+    <header class="p-3 bg-warning text-warning-emphasis text-center">
+        <h1>AI Product Detection</h1>
+    </header>
+
+
+    <div class="card mb-3 mt-3">
+        <div class="card-body bg-warning-subtle">
+            <div class="clearfix">
+                <h5 class="card-title float-start">Lihat riwayat deteksi</h5>
+                <button class="btn btn-dark text-warning dropdown-toggle float-end" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Riwayat
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="camera">Kamera</a></li>
+                    <li><a class="dropdown-item" href="upload">Unggah</a></li>
+                </ul>
+            </div>
+            <div>
+                <p></p>
+            </div>
+            <div id="hasil-statistik-upload"></div>
+            <div id="hasil-statistik-webcam"></div>
+            <button id="delete-all-upload" class="btn btn-danger">Delete All Uploads</button>
+            <button id="delete-all-webcam" class="btn btn-danger">Delete All Webcam</button>
+            <a href="/export_excel" class="btn btn-success">Unduh Excel</a>
+            <a href="/export_csv" class="btn btn-success">Unduh CSV</a>
+            <a href="/export_json" class="btn btn-success">Unduh JSON</a>
+        </div>
+    </div>
+
+    <div>
+        <footer>
+            <p class="has-text-align-center text-warning" style="font-size:12px">Marcotte Station, Court of Fontaine, Fontaine |
+                (+62)
+                82190055572 | <a href="mailto:email@mygroovydomain.com">ngaraopas1@gmail.com</a></p>
+            <p class="etdah text-warning">&copy; 2023 Ains 45</p>
+        </footer>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        function fetchAndDisplayStatistics() {
+            fetch('/get_statistics')
+                .then(response => response.json())
+                .then(data => {
+                    displayTable(data, 'upload');
+                    displayTable(data, 'webcam');
+                });
+        }
+
+        function displayTable(data, source) {
+            let filteredData = data.filter(item => item.source === source);
+            let tableHtml = `<table class='table'><caption>${source.toUpperCase()} Predictions</caption><tr><th>Time</th><th>Image</th><th>Filename</th><th>Prediction</th><th>Action</th></tr>`;
+
+            filteredData.forEach(function (row, index) {
+                tableHtml += `<tr><td>${row.time}</td><td><img src="/static/uploads/${row.filename}" alt="Image" width="100"></td><td>${row.filename}</td><td>${row.prediction}</td><td><button onclick="deleteEntry(event, ${index}, '${source}')">Delete</button></td></tr>`;
+            });
+
+            tableHtml += "</table>";
+            document.getElementById(`hasil-statistik-${source}`).innerHTML = tableHtml;
+        }
+
+
+        function deleteEntry(event, index, source) {
+            event.preventDefault();
+            fetch(`/delete_entry/${index}/${source}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        fetchAndDisplayStatistics(); // Refresh the list
+                        // Periksa apakah tabel webcam kosong
+                        checkIfWebcamTableEmpty();
+                    } else {
+                        console.error('Error deleting entry:', data.error);
+                    }
+                })
+                .catch(error => console.error('Fetch error:', error));
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchAndDisplayStatistics();
+        });
+
+        document.getElementById('delete-all-upload').addEventListener('click', function () {
+            deleteAll('upload');
+        });
+
+        document.getElementById('delete-all-webcam').addEventListener('click', function () {
+            deleteAll('webcam');
+        });
+
+        function deleteAll(source) {
+            if (confirm(`Are you sure you want to delete all ${source} history?`)) {
+                fetch(`/delete_all/${source}`, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            fetchAndDisplayStatistics(); // Refresh the list
+                            if (data.webcam_empty) {
+                                resetWebcamCount();
+                            }
+                        } else {
+                            console.error(`Error deleting all ${source} entries:`, data.error);
+                        }
+                    })
+                    .catch(error => console.error('Fetch error:', error));
+            }
+        }
+
+        function resetWebcamCount() {
+            fetch('/reset_count', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => console.log('Counter reset'))
+                .catch(error => console.error('Error resetting counter:', error));
+        }
+
+
+
+    </script>
+
+</body>

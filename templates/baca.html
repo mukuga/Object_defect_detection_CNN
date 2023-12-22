@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ains45</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- css only -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Ains45</a>
+            <div class="row-justify-content-end">
+                <button type="button" class="btn btn-outline-secondary col-sm-7">Sign In</button>
+                <button class="navbar-toggler col-sm-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Login</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign up</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="p-3 mb-2 bg-dark text-white">
+        <div class="container mb-4 mt-5">
+            <img src="{{ url_for('static', filename='images/gambar-5.png') }}" width="100px" height="100px"
+                class="rounded mx-auto d-block" alt="...">
+            <div class="container mt-5 mb-5">
+                <h3 class="grid text-center">Ains 45</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clearfix p-4">
+        <img src="{{ url_for('static', filename='images/gambar-4.jpeg') }}" class="col-md-0 float-md-end mb-3 ms-md-3"
+            width="200px" height="200px" alt="...">
+
+        <p>
+            Dalam setiap produksi, pasti akan selalu ada produk yang cacat (defective goods). Perusahaan Manufaktur saat
+            ini memiliki tantangan dalam memastikan kualitas produk sebelum dipasarkan. Saat ini pemeriksaan produk
+            masih dilakukan secara manual sehingga kurang akurat dan memakan waktu yang lama. Tenaga kerja yang
+            dibutuhkan juga banyak sehingga biaya produksi juga ikut meningkat. Dengan proses pemeriksaan kualitas
+            secara manual ini , tentu saja sangat besar potensi bahwa produk cacat banyak yang lolos atau tidak
+            terdeteksi secara efisien.
+        </p>
+
+        <p>
+            Untuk mengatasi tantangan pemeriksaan kualitas produk yang manual, kami mengadopsi teknologi AI dengan
+            penggunaan computer vision melalui model CNN 'Ains45', yang kami rancang khusus untuk deteksi kecacatan
+            produk. Implementasi ini mengotomatiskan proses pemeriksaan, meningkatkan efisiensi, mengurangi biaya
+            produksi, dan meminimalkan human error, menjadikan setiap produk yang dihasilkan memenuhi standar kualitas
+            tinggi dengan keandalan dan kepuasan pelanggan yang optimal.
+        </p>
+
+        <p>
+            Untuk saat ini kami hanya mengembangkan model AI kami untuk mendeteksi satu product saja yaitu impeller
+            pompa submersible.
+        </p>
+    </div>
+
+    <div class="p-3 mb-2 bg-light text-dark">
+        <div class="container mt-4 text-center">
+            <div class="row justify-content-center">
+                <div class="card col-sm-2">
+                    <div class="card-header">
+                        Oke
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <img src="{{ url_for('static', filename='images/product_ok.jpeg') }}" class="img-thumbnail"
+                            alt="...">
+                        <p class="card-text">Ini adalah foto tampilan atas impeller pompa submersible
+                        </p>
+                    </div>
+                </div>
+                <div class="card col-sm-2">
+                    <div class="card-header">
+                        Cacat
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <img src="{{ url_for('static', filename='images/product_def.jpeg') }}" class="img-thumbnail"
+                            alt="...">
+                        <p class="card-text">Ini adalah foto tampilan atas impeller pompa submersible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <footer>
+            <p class="has-text-align-center" style="font-size:12px">Marcotte Station, Court of Fontaine, Fontaine |
+                (+62)
+                82190055572 | <a href="mailto:email@mygroovydomain.com">ngaraopas1@gmail.com</a></p>
+            <p class="etdah">&copy; 2023 Ains 45</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>

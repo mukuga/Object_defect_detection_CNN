@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ains45</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- css only -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div>
+        <!-- Ini navbar -->
+        <nav class="navbar bg-warning-subtle border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-warning-emphasis" href="#">Ains45</a>
+                <div class="row-justify-content-end">
+                    <button type="button" class="btn btn-outline-secondary col-sm-7">Sign In</button>
+                    <button class="navbar-toggler col-sm-4" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Sign up</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- ini navbar end -->
+    </div>
+
+    <header class="p-3 text-center bg-warning bg-gradient text-warning-emphasis">
+        <h1>AI Product Detection</h1>
+    </header>
+
+
+
+    <div class="card mb-2 mt-2 bg-warning-subtle text-emphasis-light">
+
+        <div class="card-body">
+            <div class="clearfix">
+                <h5 class="card-title float-start">Deteksi secara langsung</h5>
+                <button class="btn btn-dark text-warning dropdown-toggle float-end" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Kamera
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="upload">Unggah</a></li>
+                    <li><a class="dropdown-item" href="stats">Riwayat</a></li>
+                </ul>
+            </div>
+            <div>
+                <p></p>
+            </div>
+            <div id="camera-container">
+                <video id="videoElement" width="300" height="300"></video>
+                <canvas id="canvas" width="300" height="300" style="display:none;"></canvas>
+            </div>
+            <div class="container px-4 text-center">
+                <button id="mulai-kamera" class="btn btn-primary mt-3">Mulai Kamera</button>
+                <button id="ambil-gambar" class="btn btn-success mt-3">Ambil Gambar</button>
+                <button id="mulai-prediksi" class="btn btn-success mt-3">Mulai Prediksi</button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <p id="image-name-display"> <span id="image-name"></span></p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <p id="hasil-prediksi"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis">
+        <div class="container mt-4 text-center">
+            <div class="row justify-content-center">
+                <div class="card col-sm-2">
+                    <div class="card-header">
+                        Contoh
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <img src="{{ url_for('static', filename='images/product_ok.jpeg') }}" class="img-thumbnail"
+                            alt="...">
+                        <p class="card-text">Ini adalah foto tampilan atas impeller pompa submersible
+                        </p>
+                    </div>
+                </div>
+                <div class="card col-sm-2">
+                    <div class="card-header">
+                        Contoh
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <img src="{{ url_for('static', filename='images/product_def.jpeg') }}" class="img-thumbnail"
+                            alt="...">
+                        <p class="card-text">Ini adalah foto tampilan atas impeller pompa submersible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <footer>
+            <p class="has-text-align-center text-warning" style="font-size:12px">Marcotte Station, Court of Fontaine,
+                Fontaine |
+                (+62)
+                82190055572 | <a href="mailto:email@mygroovydomain.com">ngaraopas1@gmail.com</a></p>
+            <p class="etdah text-warning">&copy; 2023 Ains 45</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let video = document.getElementById("videoElement");
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext('2d');
+        let isStreaming = false;
+        let imageCaptured = false;
+        let imageDataUrl = '';
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: { width: 300, height: 300 } })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    video.width = 300; // Set video element width
+                    video.height = 300; // Set video element height
+                })
+                .catch(function (error) {
+                    console.log("Something went wrong with the webcam!");
+                });
+        }
+
+        document.getElementById('mulai-kamera').addEventListener('click', function () {
+            video.style.display = 'block'; // Show the video element
+            canvas.style.display = 'none'; // Hide the canvas
+            video.play();
+            isStreaming = true;
+        });
+
+        document.getElementById('ambil-gambar').addEventListener('click', function () {
+            if (isStreaming) {
+                context.drawImage(video, 0, 0, 300, 300);
+                imageDataUrl = canvas.toDataURL('image/jpeg');
+                imageCaptured = true;
+                video.style.display = 'none'; // Hide the video element
+                canvas.style.display = 'block'; // Show the canvas
+
+                var flash = document.createElement('div');
+                flash.className = 'flash';
+                document.body.appendChild(flash);
+                setTimeout(function () {
+                    flash.style.opacity = 1;
+                }, 100);
+                setTimeout(function () {
+                    flash.style.opacity = 0;
+                    document.body.removeChild(flash);
+                }, 500); // Flash akan hilang setelah 0.5 detik
+
+                fetch('/get_current_count')
+                    .then(response => response.json())
+                    .then(data => {
+                        let currentCount = data.count;
+                        document.getElementById('image-name').textContent = `image_${currentCount + 0}`;
+                    });
+            }
+        });
+
+        document.getElementById('mulai-prediksi').addEventListener('click', function () {
+            if (imageCaptured) {
+                fetch('/webcam_predict', {
+                    method: 'POST',
+                    body: JSON.stringify({ image: imageDataUrl }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('hasil-prediksi').textContent =
+                            `Filename: ${data.filename}, Prediction: ${data.prediction}`;
+                    });
+
+                // After taking a picture and getting a prediction
+                fetch('/get_current_count')
+                    .then(response => response.json())
+                    .then(data => {
+                        let count = data.count;
+                        // Display the image name like 'image_1', 'image_2' etc.
+                    });
+
+            }
+        });
+    </script>
+
+
+</body>

@@ -1,0 +1,10 @@
+time,filename,prediction,source
+2023-12-06 19:26:12,cast_ok_0_93.jpeg,oke,upload
+2023-12-21 01:13:02,cast_def_0_0.jpeg,cacat,upload
+2023-12-21 01:13:02,cast_ok_0_37.jpeg,oke,upload
+2023-12-21 01:13:29,image_1.jpg,cacat,webcam
+2023-12-21 01:18:39,image_2.jpg,cacat,webcam
+2023-12-21 01:19:30,image_3.jpg,oke,webcam
+2023-12-21 01:47:28,image_4.jpg,cacat,webcam
+2023-12-21 01:52:03,image_5.jpg,oke,webcam
+2023-12-21 01:53:27,cast_ok_0_37.jpeg,oke,upload

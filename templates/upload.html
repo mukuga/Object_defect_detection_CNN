@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ains45</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- css only -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div>
+        <!-- Ini navbar -->
+        <nav class="navbar bg-warning-subtle border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-warning-emphasis" href="#">Ains45</a>
+                <div class="row-justify-content-end">
+                    <button type="button" class="btn btn-outline-secondary col-sm-7">Sign In</button>
+                    <button class="navbar-toggler col-sm-4" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Sign up</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- ini navbar end -->
+    </div>
+
+    <header class="p-3 bg-warning bg-gradient text-warning-emphasis text-center">
+        <h1>AI Product Detection</h1>
+    </header>
+
+    <div>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="card mb-2 mt-2 bg-warning-subtle">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <h5 class="card-title float-start">Unggah beberapa gambar</h5>
+                        <button class="btn btn-dark text-warning dropdown-toggle float-end" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Unggah
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="camera">Kamera</a></li>
+                            <li><a class="dropdown-item" href="stats">Riwayat</a></li>
+                        </ul>
+                    </div>
+
+                    <label for="gambar-unggah">Pilih file gambar:</label>
+                    <input type="file" name="file" id="gambar-unggah" class="form-control mb-3" accept="image/*"
+                        multiple>
+                    <button type="submit" class="btn btn-primary">Mulai</button>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Hasil Prediksi
+                    </div>
+                    <div class="card-body">
+                        {% if results is defined and results %}
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Nama File</th>
+                                    <th>Prediksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in results.predictions %}
+                                <tr>
+                                    <td><img src="{{ url_for('static', filename='uploads/' + result['filename']) }}"
+                                            alt="Image" width="100"></td>
+                                    <td>{{ result['filename'] }}</td>
+                                    <td>{{ result['prediction'] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <p class="mt-3">Produk Anda cacat: {{ results.good }}, Produk Anda baik: {{ results.defective }}
+                        </p>
+                        {% elif error is defined %}
+                        <p id="hasil-prediksi">{{ error }}</p>
+                        {% else %}
+                        <p id="hasil-prediksi">Tidak ada hasil prediksi yang tersedia.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis">
+        <div class="container mt-4 text-center">
+            <div class="row justify-content-center">
+                <div class="card col-sm-2">
+                    <div class="card-header">
+                        Oke
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <img src="{{ url_for('static', filename='images/product_ok.jpeg') }}" class="img-thumbnail"
+                            alt="...">
+                        <p class="card-text">Ini adalah foto tampilan atas impeller pompa submersible
+                        </p>
+                    </div>
+                </div>
+                <div class="card col-sm-2">
+                    <div class="card-header">
+                        Cacat
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <img src="{{ url_for('static', filename='images/product_def.jpeg') }}" class="img-thumbnail"
+                            alt="...">
+                        <p class="card-text">Ini adalah foto tampilan atas impeller pompa submersible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <footer>
+            <p class="has-text-align-center text-warning" style="font-size:12px">Marcotte Station, Court of Fontaine, Fontaine |
+                (+62)
+                82190055572 | <a href="mailto:email@mygroovydomain.com">ngaraopas1@gmail.com</a></p>
+            <p class="etdah  text-warning">&copy; 2023 Ains 45</p>
+        </footer>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>

@@ -1,0 +1,36 @@
+footer {
+    background-color:rgb(45, 35, 19);
+    color: white;
+    text-align: center;
+    padding: 2em 0;
+}
+
+.etdah {
+    font-size: 12px;
+}
+
+#camera-container {
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#videoElement, #canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 500;
+}
+
+
