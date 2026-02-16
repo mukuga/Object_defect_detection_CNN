@@ -49,13 +49,12 @@ The system is built as an end-to-end deep learning pipeline, from data preproces
 
 ## 📂 Repository Structure
 
-├── train/ # Training dataset
-├── test images/ # Testing dataset
-├── models/ # Saved trained model (.hdf5)
-├── predictions/ # Prediction outputs
-├── ains.py # Training & evaluation script
-└── README.md
-
+- `train/` — Training dataset  
+- `test_images/` — Testing dataset  
+- `models/` — Saved trained model (.hdf5)  
+- `predictions/` — Prediction outputs  
+- `ains.py` — Training & evaluation script  
+- `README.md`
 
 ---
 
