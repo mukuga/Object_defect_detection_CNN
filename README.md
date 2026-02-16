@@ -54,7 +54,7 @@ The system is built as an end-to-end deep learning pipeline, from data preproces
 ├── models/ # Saved trained model (.hdf5)
 ├── predictions/ # Prediction outputs
 ├── ains.py # Training & evaluation script
-└── README.md 
+└── README.md
 
 
 ---
